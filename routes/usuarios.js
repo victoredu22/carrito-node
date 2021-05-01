@@ -12,9 +12,15 @@ const {
 	correoExiste,
 	existeUsuarioPorId,
 } = require("../helpers/db-validators");
-const { validarCampos } = require("../middlewares/validar-campos");
-const { validarJWT } = require("../middlewares/validar-jwt");
-const { esAdminRole, tieneRole } = require("../middlewares/validar-roles");
+
+
+const {
+	validarCampos,
+	validarJWT,
+	esAdminRole,
+	tieneRole,
+} = require("../middlewares");
+
 
 router.get("/", usuariosGet);
 router.post(
@@ -42,11 +48,15 @@ router.put(
 	usuariosPut
 );
 
-router.delete("/:id", [
-		validarJWT, 
+router.delete(
+	"/:id",
+	[
+		validarJWT,
 		//esAdminRole
-		tieneRole('ADMIN_ROLE','COMPRA_ROLE'),
-	], usuarioDelete);
+		tieneRole("ADMIN_ROLE", "COMPRA_ROLE"),
+	],
+	usuarioDelete
+);
 
 router.get("*", (req, res) => {
 	res.send("404 Page not found");

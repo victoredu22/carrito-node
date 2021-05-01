@@ -1,26 +1,40 @@
-const {response, request} = require('express')
+const { response, request } = require("express");
+const { subirArchivo } = require("../helpers");
+const Producto = require("../models/producto");
 
-const Producto = require('../models/producto')
+const productoGet = async (req = request, res = response) => {
+	const producto = await Producto.find().skip(Number(0)).limit(Number(10));
 
-const productoGet =(req = request, res = response)=>{
-  res.json({
-    msg:'hola soy el get'
-  })
-}
+	res.json({
+		cantidadTotal: producto.length,
+		producto,
+	});
+};
 
-const productoPost = (req = request, res = response)=>{
-  
+const productoPost = async (req = request, res = response) => {
+	const body = req.body;
+	const producto = new Producto(body);
+	await producto.save();
 
-  const body = req.body;
-  const producto = new Producto(body);
-  producto.save();
+	res.json({
+		msg: "hola soy el post",
+		producto,
+	});
+};
 
-  res.json({
-    msg:'hola soy el post',
-    producto
-  })
-}
+const productoPut = async (req, res = response) => {
+	const uid = req.params.id;
+	const camposNuevos = req.body;
+
+	const ingresoProducto = await Producto.findByIdAndUpdate(uid,camposNuevos);
+
+	res.json({
+	  msg:'El producto fue guardado exitosamente',
+		ingresoProducto:camposNuevos
+	});
+};
 module.exports = {
-  productoGet,
-  productoPost
-}
+	productoGet,
+	productoPost,
+	productoPut,
+};

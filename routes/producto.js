@@ -1,20 +1,40 @@
 const { Router } = require("express");
-
 const {validarCampos} = require('../middlewares/validar-campos');
-
-
 const router = Router();
+
+
 const {
 	productoGet,
 	productoPost,
+	productoPut
 } = require("../controllers/productoController");
 const { check } = require("express-validator");
 
 router.get("/", productoGet);
 router.post(
 	"/",
-	[check("nombre", "El nombre es vacio").not().isEmpty(),validarCampos],
+	[
+		check("titulo", "El campo titulo esta vacio").not().isEmpty(),
+		check("descripcion", "El campo descripcion esta vacio").not().isEmpty(),
+		check("precio", "El campo precio esta vacio").not().isEmpty(),
+		check("levelStars", "El campo level stars esta vacio").not().isEmpty(),
+		check("categoria", "El campo categoria esta vacio").not().isEmpty(),
+		check("fechaPublicacion", "El campo fecha de publicacion esta vacio").not().isEmpty(),
+	
+
+	validarCampos],
 	productoPost
+);
+router.put(
+	"/:id",[
+		check("titulo", "El campo titulo esta vacio").not().isEmpty(),
+		check("descripcion", "El campo descripcion esta vacio").not().isEmpty(),
+		check("precio", "El campo precio esta vacio").not().isEmpty(),
+		check("levelStars", "El campo level stars esta vacio").not().isEmpty(),
+		check("fechaPublicacion", "El campo fecha de publicacion esta vacio").not().isEmpty(),
+	
+		validarCampos],
+	productoPut
 );
 
 module.exports = router;

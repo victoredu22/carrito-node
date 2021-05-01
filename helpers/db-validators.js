@@ -21,8 +21,22 @@ const existeUsuarioPorId = async(id)=>{
     throw new Error(`El id no existe ${id}`);
   }
 }
+/**
+ * Validar coleccione permitidas
+ * 
+ */
+const coleccionesPermitidas = (coleccion='', colecciones = [])=>{
+  const incluida = colecciones.includes(coleccion);
+  if(!incluida){
+    throw new Error(`La coleccion ${coleccion} no es permitida, ${colecciones}`);
+  }
+
+  return true
+}
+
 module.exports = {
   roleValido,
   correoExiste,
-  existeUsuarioPorId
+  existeUsuarioPorId,
+  coleccionesPermitidas
 }

@@ -38,14 +38,13 @@ const usuariosPut =  async (req, res = response) =>{
   const _id = req.params.id;
   const {password,google,correo, ...resto} = req.body;
 
-  if(password){
+   if(password){
     const salt = bcryptjs.genSaltSync();
     resto.password = bcryptjs.hashSync(password, salt);
   }
 
   const usuario = await Usuario.findByIdAndUpdate(_id,resto);
-
-
+  
    res.json({
       msg:'El usuario fue guardado exitosamente',
       usuario:resto
