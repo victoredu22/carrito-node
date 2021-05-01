@@ -17,7 +17,7 @@ const productoPost = async (req = request, res = response) => {
 	await producto.save();
 
 	res.json({
-		msg: "hola soy el post",
+		msg: "Se ha ingresado el producto con exito.",
 		producto,
 	});
 };
@@ -29,7 +29,7 @@ const productoPut = async (req, res = response) => {
 	const ingresoProducto = await Producto.findByIdAndUpdate(uid,camposNuevos);
 
 	res.json({
-	  msg:'El producto fue guardado exitosamente',
+	  msg:'El producto fue guardado exitosamente.',
 		ingresoProducto:camposNuevos
 	});
 };

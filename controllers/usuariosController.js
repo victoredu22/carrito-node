@@ -29,7 +29,7 @@ const usuariosPost =  async (req, res = response) =>{
   //guardar en bd
   await usuario.save();
   res.json({
-    msg:'este es el post',
+    msg:'Se ha ingresado el usuario con exito.',
     usuario
   }) 
 }
@@ -46,7 +46,7 @@ const usuariosPut =  async (req, res = response) =>{
   const usuario = await Usuario.findByIdAndUpdate(_id,resto);
   
    res.json({
-      msg:'El usuario fue guardado exitosamente',
+      msg:'El usuario fue guardado exitosamente.',
       usuario:resto
   });
 }
@@ -58,7 +58,7 @@ const usuarioDelete = (req, res = response)=>{
 
 
   res.json({
-    msg:"hola soy delete",
+    msg:"hola soy delete.",
     uid,
     usuarioAutenticado
   })

@@ -15,6 +15,8 @@ const validarJWT = async (req = request, res = response, next)=>{
 
     //leer el usuario que corresponde al uid
     const usuario = await Usuario.findById({_id})
+
+   
     if(!usuario){
       return res.status(401).json({
         msg:'Token no valido - usuario no existe en bd'
@@ -27,7 +29,6 @@ const validarJWT = async (req = request, res = response, next)=>{
     }
     
     req.usuario = usuario;
-
     
     next();
   }catch(error){
@@ -36,8 +37,6 @@ const validarJWT = async (req = request, res = response, next)=>{
       msg:'token no valido'
     })
   }
-  console.log(token);
-  next();
 
 }
 

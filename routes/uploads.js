@@ -7,12 +7,13 @@ const {
   mostrarImagen
 } = require("../controllers/uploadsController");
 const { coleccionesPermitidas } = require("../helpers");
-const { validarCampos, validarArchivoSubir } = require("../middlewares");
+const { validarCampos, validarArchivoSubir, validarJWT } = require("../middlewares");
 
 router.post("/", validarArchivoSubir, cargarArchivo);
 router.put(
 	"/:coleccion/:id",
 	[
+		validarJWT,
 		validarArchivoSubir,
 		check("id", "El id debe ser de mongo").isMongoId(),
 		check("coleccion").custom((c) =>

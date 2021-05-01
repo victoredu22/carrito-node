@@ -22,10 +22,11 @@ const {
 } = require("../middlewares");
 
 
-router.get("/", usuariosGet);
+router.get("/", validarJWT,usuariosGet);
 router.post(
 	"/",
 	[
+		validarJWT,
 		check("nombre", "El nombre es vacio").not().isEmpty(),
 		check("correo", "El correo es invalido").custom(correoExiste),
 		check("password", "El password debe ser mas de 6 letras").isLength({
@@ -40,6 +41,7 @@ router.post(
 router.put(
 	"/:id",
 	[
+		validarJWT,
 		check("id", "No es un ID válido").isMongoId(),
 		check("id").custom(existeUsuarioPorId),
 		check("rol").custom(roleValido),
